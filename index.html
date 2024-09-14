@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code Audio Aleatório</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+      margin: 0;
+    }
+    .container {
+      text-align: center;
+    }
+    .qr-code {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="qr-code" class="qr-code"></div> <!-- qrcode vai ser gerado aqui -->
+  </div>
+
+  <!-- QRCode.js script -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    // Url dos arquivos MP3 la no driv
+    const audioFiles = [
+      'https://drive.google.com/uc?export=download&id=18XC0KsOFPagGS0k4xJO5XUGOLrahFNFi',
+      'https://drive.google.com/uc?export=download&id=1OSoozpMY4WQkwhYza5y9hpKsRWq0K65e',
+      'https://drive.google.com/uc?export=download&id=1_4DdYEcrmVQekZJv3vZB_tsXP727QiVX'
+    ];
+    // Função p abrir audio aleatoriamante
+    function getRandomAudio() {
+      const randomIndex = Math.floor(Math.random() * audioFiles.length);
+      return audioFiles[randomIndex];
+    }
+
+    // Gera o qrcode para o audio
+    function generateQRCode() {
+      const qrContainer = document.getElementById('qr-code'); // Seleciona o div onde o QR será gerado
+      const randomAudioURL = getRandomAudio();
+
+      // Limpa antes de gerar outro qrcode
+      qrContainer.innerHTML = '';
+
+      // Gera o qrcode
+      new QRCode(qrContainer, {
+        text: randomAudioURL,
+        width: 256,
+        height: 256
+      });
+    }
+
+    // Chama função p gerar 
+    window.onload = generateQRCode;
+  </script>
+</body>
+</html>
+
+
